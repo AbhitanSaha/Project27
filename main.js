@@ -1,6 +1,7 @@
 
 /*created by prashant shukla */
-
+noseX=0;
+noseY=0;
 var paddle2 =10,paddle1=10;
 
 var paddle1X = 10,paddle1Height = 110;
@@ -23,6 +24,11 @@ var ball = {
 
 function setup(){
   var canvas =  createCanvas(700,600);
+  canvas.center();
+  video=createCapture(VIDEO);
+  video.hide();
+  poseNet=ml5.poseNet(video,moselelLoaded);
+  poseNet.on("pose",gotPoses);
 }
 
 
@@ -161,4 +167,9 @@ function paddleInCanvas(){
   if(mouseY < 0){
     mouseY =0;
   }  
+}
+function gotPoses(results){
+  noseX=results[0].pose.nose.x;
+  noseY=results[0].pose.mose.y;
+  console.log("NoseX= "+noseX+", NoseY= "+noseY);
 }
