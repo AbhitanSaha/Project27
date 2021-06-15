@@ -2,6 +2,7 @@
 /*created by prashant shukla */
 noseX=0;
 noseY=0;
+score="";
 var paddle2 =10,paddle1=10;
 
 var paddle1X = 10,paddle1Height = 110;
@@ -26,7 +27,9 @@ function setup(){
   var canvas =  createCanvas(700,600);
   canvas.center();
   video=createCapture(VIDEO);
-  video.hide();
+  video.size(300,300);
+  video.position(5,400);
+  video.parent('game_console');
   poseNet=ml5.poseNet(video,moselelLoaded);
   poseNet.on("pose",gotPoses);
 }
@@ -43,7 +46,11 @@ function draw(){
  fill("black");
  stroke("black");
  rect(0,0,20,700);
- 
+ if(score>0.2){
+   fill("#000000");
+   stroke("#000000");
+   circle(noseX,noseY,900);
+}
    //funtion paddleInCanvas call 
    paddleInCanvas();
  
@@ -169,7 +176,12 @@ function paddleInCanvas(){
   }  
 }
 function gotPoses(results){
-  noseX=results[0].pose.nose.x;
-  noseY=results[0].pose.mose.y;
-  console.log("NoseX= "+noseX+", NoseY= "+noseY);
+  console.log(results);
+  noseX=results[0].pose.rightWrist.x;
+  noseY=results[0].pose.rightWrist.y;
+  score=results[0].pose.rightWrist.scrore;
+  console.log("WristX= "+noseX+", WristY= "+noseY);
+}
+function moselelLoaded(){
+  console.log("Re:Zero");
 }
