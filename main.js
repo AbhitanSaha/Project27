@@ -3,6 +3,7 @@
 noseX=0;
 noseY=0;
 score="";
+status="";
 var paddle2 =10,paddle1=10;
 
 var paddle1X = 10,paddle1Height = 110;
@@ -36,7 +37,7 @@ function setup(){
 
 
 function draw(){
-
+ if(status="start"){
  background(0); 
 
  fill("black");
@@ -78,6 +79,7 @@ function draw(){
    
    //function move call which in very important
     move();
+}
 }
 
 
@@ -184,4 +186,7 @@ function gotPoses(results){
 }
 function moselelLoaded(){
   console.log("Re:Zero");
+}
+function startGame(){
+  status="start";
 }
