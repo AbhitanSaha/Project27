@@ -1,6 +1,5 @@
 
 /*created by prashant shukla */
-noseX=0;
 noseY=0;
 score="";
 status="";
@@ -23,7 +22,9 @@ var ball = {
     dx:3,
     dy:3
 }
-
+function preload(){
+  touch=loadSound("ball_touch_paddel.wav");
+}
 function setup(){
   var canvas =  createCanvas(700,600);
   canvas.center();
@@ -59,7 +60,7 @@ function draw(){
    fill(250,0,0);
     stroke(0,0,250);
     strokeWeight(0.5);
-   paddle1Y = mouseY; 
+   paddle1Y = noseY; 
    rect(paddle1X,paddle1Y,paddle1,paddle1Height,100);
    
    
@@ -132,6 +133,7 @@ function move(){
   if (ball.x-2.5*ball.r/2< 0){
   if (ball.y >= paddle1Y&& ball.y <= paddle1Y + paddle1Height) {
     ball.dx = -ball.dx+0.5; 
+    touch.play();
   }
   else{
     pcscore++;
@@ -147,7 +149,7 @@ if(pcscore ==4){
     stroke("white");
     textSize(25)
     text("Game Over!☹☹",width/2,height/2);
-    text("Reload The Page!",width/2,height/2+30)
+    text("Click Restart!",width/2,height/2+30)
     noLoop();
     pcscore = 0;
 }
@@ -179,14 +181,16 @@ function paddleInCanvas(){
 }
 function gotPoses(results){
   console.log(results);
-  noseX=results[0].pose.rightWrist.x;
-  noseY=results[0].pose.rightWrist.y;
-  score=results[0].pose.rightWrist.scrore;
-  console.log("WristX= "+noseX+", WristY= "+noseY);
+  noseY=results[0].pose.nose.y;
+  score=results[0].pose.nose.scrore;
+  console.log("WristY= "+noseY);
 }
 function moselelLoaded(){
   console.log("Re:Zero");
 }
 function startGame(){
   status="start";
+}
+function re(){
+  loop();
 }
